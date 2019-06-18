@@ -1,0 +1,20 @@
+{
+  "name": "wamp.router",
+  "version": "0.0.1",
+  "description": "A WAMP V2 nodejs router",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vdiez/wamp.router.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "wamp",
+    "message",
+    "broker",
+    "router"
+  ],
+  "dependencies": {
+    "ws": "^7.0.0"
+  },
+  "main": "index.js"
+}
