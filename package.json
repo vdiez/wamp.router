@@ -1,5 +1,5 @@
 {
-  "name": "wamp.router",
+  "name": "router.wamp",
   "version": "0.0.1",
   "description": "A WAMP V2 nodejs router",
   "repository": {
