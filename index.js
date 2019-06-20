@@ -3,8 +3,15 @@
 let Session = require('./lib/session'), Realm = require('./lib/realm').Realm, wss = require('ws'), EventEmitter = require('events').EventEmitter;
 
 class WampRouter extends EventEmitter {
-    constructor  (auth) {
+    constructor  ({logger, auth}) {
         super();
+        if (!logger) logger = {};
+        if (typeof logger.info !== "function") logger.info = () => {};
+        if (typeof logger.warn !== "function") logger.warn = () => {};
+        if (typeof logger.error !== "function") logger.error = () => {};
+        if (typeof logger.debug !== "function") logger.debug = () => {};
+        if (typeof logger.verbose !== "function") logger.verbose = () => {};
+        this.logger = logger;
         this.realms = {};
         this.handle_methods = auth && auth.handle_methods || ((details, cb) => cb(null, "anonymous"));
         this.authenticate = auth && auth.authenticate || ((details, secret, cb) => cb());
@@ -14,7 +21,7 @@ class WampRouter extends EventEmitter {
     get_realm(realm_name, callback) {
         if (this.realms.hasOwnProperty(realm_name)) callback(this.realms[realm_name]);
         else {
-            let realm = new Realm(realm_name);
+            let realm = new Realm(this, realm_name);
             this.realms[realm_name] = realm;
             callback(realm);
         }
