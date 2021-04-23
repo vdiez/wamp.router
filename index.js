@@ -1,6 +1,6 @@
 'use strict';
 
-let Session = require('./lib/session'), Realm = require('./lib/realm').Realm, wss = require('ws'), EventEmitter = require('events').EventEmitter;
+let Session = require('./lib/session'), Realm = require('./lib/realm').Realm, wss = require('ws').Server, EventEmitter = require('events').EventEmitter;
 
 class WampRouter extends EventEmitter {
     constructor  ({logger, auth}) {
@@ -27,9 +27,9 @@ class WampRouter extends EventEmitter {
         }
     }
 
-    listen(options) {
+    listen(options, callback) {
         if (!options.disableProtocolCheck) options.handleProtocols = (protocols, request) => protocols && protocols.includes("wamp.2.json") && "wamp.2.json";
-        let server = new wss.Server(options);
+        let server = new wss(options, callback);
         server.on('connection', wsclient => new Session(this, wsclient));
         return server;
     }
