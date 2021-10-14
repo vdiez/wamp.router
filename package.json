@@ -14,7 +14,7 @@
     "router"
   ],
   "dependencies": {
-    "ws": "^8.2.2"
+    "ws": "^8.2.3"
   },
   "main": "index.js",
   "devDependencies": {
