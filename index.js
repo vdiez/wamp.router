@@ -1,12 +1,11 @@
 'use strict';
 
-const WSS = require('ws').Server, EventEmitter = require('events').EventEmitter, Session = require('./lib/session'), Realm = require('./lib/realm').Realm;
+const WSS = require('ws').Server, Session = require('./lib/session'), Realm = require('./lib/realm').Realm;
 
 const silentLogger = {info() {}, warn() {}, error() {}, verbose() {}, debug() {}, silly() {}};
 
-class WampRouter extends EventEmitter {
+class WampRouter {
     constructor({logger, auth}) {
-        super();
         this.logger = {...silentLogger, ...logger};
         this.realms = {};
         this.handle_methods = auth?.handle_methods || ((details, cb) => cb(null, 'anonymous'));
