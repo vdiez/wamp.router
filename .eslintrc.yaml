@@ -35,3 +35,4 @@ rules:
   block-spacing: ["error", "never"]
   strict: off
   object-shorthand: ["error", "always"]
+  no-unused-vars: ["error", { "args": "none" }]
